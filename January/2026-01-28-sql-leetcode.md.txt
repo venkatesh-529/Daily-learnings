@@ -1,0 +1,28 @@
+# SQL – LeetCode Practice
+
+## Problems Solved
+- Employees Bonus
+- Employees Missing Information
+
+## Key Concepts Used
+- IF vs CASE
+- LEFT JOIN
+- NULL handling using IS NULL
+
+## What I Learned
+- LEFT JOIN helps find missing records when one table has no matching row
+- NULL comparisons must use IS NULL, not = NULL
+- IF can be used to create conditional output columns
+
+## Mistake I Made
+I tried checking NULL values using `= NULL`, which never works.
+The correct way is using `IS NULL`.
+
+## One Query to Remember
+```sql
+SELECT e.employee_id
+FROM Employees e
+LEFT JOIN Salaries s
+ON e.employee_id = s.employee_id
+WHERE s.salary IS NULL
+ORDER BY e.employee_id;
