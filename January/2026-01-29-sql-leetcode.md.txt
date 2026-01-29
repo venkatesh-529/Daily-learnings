@@ -1,0 +1,33 @@
+# SQL – LeetCode Practice
+
+## Problems Solved
+- 1141. User Activity for the Past 30 Days I
+- Delete Duplicate Emails
+
+## Key Concepts Used
+- COUNT(DISTINCT column)
+- DATE filtering with INTERVAL
+- GROUP BY
+- DELETE with subquery
+- MIN(id) pattern for deduplication
+
+## What I Learned
+- `COUNT(DISTINCT user_id)` is required to avoid overcounting multiple activities by the same user
+- Date-based filtering can be done cleanly using `BETWEEN` with `DATE_SUB`
+- Duplicate rows can be safely removed by keeping the row with the minimum id
+- DELETE queries often rely on subqueries rather than JOINs in SQL platforms like LeetCode
+
+## Mistake I Made
+In problem 1141, I initially used `COUNT(user_id)` which gave incorrect results because the same user appeared multiple times per day.
+Using `COUNT(DISTINCT user_id)` fixed the issue.
+
+## Queries to Remember
+
+### User Activity for the Past 30 Days
+```sql
+SELECT activity_date AS day,
+       COUNT(DISTINCT user_id) AS active_users
+FROM Activity
+WHERE activity_date BETWEEN DATE_SUB('2019-07-27', INTERVAL 29 DAY)
+                        AND '2019-07-27'
+GROUP BY activity_date;
