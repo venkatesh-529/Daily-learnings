@@ -1,0 +1,28 @@
+# SQL – LeetCode Practice
+
+## Problems Solved
+- Rank Scores
+- Consecutive Numbers
+- Rising Temperature
+
+## Key Concepts Used
+- Window functions (RANK, DENSE_RANK)
+- Self JOIN
+- Date comparison using INTERVAL
+
+## What I Learned
+- `DENSE_RANK()` is preferred when equal values should share the same rank without gaps
+- Consecutive row comparison can be handled using self JOINs or window functions like `LAG`
+- Date-based problems often reduce to comparing today’s value with the previous day
+
+## Mistake I Made
+In the Rank Scores problem, I initially used `ROW_NUMBER()` which incorrectly assigned different ranks to equal scores.
+Switching to `DENSE_RANK()` fixed the issue.
+
+## Queries to Remember
+
+### Rank Scores
+```sql
+SELECT score,
+       DENSE_RANK() OVER (ORDER BY score DESC) AS rank
+FROM Scores;
