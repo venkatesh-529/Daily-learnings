@@ -1,0 +1,33 @@
+# SQL – LeetCode Practice
+
+## Problems Solved
+- Duplicate Emails
+- Trips and Users
+
+## Key Concepts Used
+- GROUP BY with HAVING
+- COUNT aggregation
+- DELETE with subquery
+- JOIN with filtering conditions
+- DATE filtering
+
+## What I Learned
+- `GROUP BY` with `HAVING COUNT(*) > 1` is the simplest way to detect duplicates
+- Duplicate rows can be removed safely by keeping the record with the minimum id
+- Filtering invalid users early in JOIN conditions simplifies queries
+- Applying date constraints in WHERE clauses reduces unnecessary data processing
+
+## Mistake I Made
+In the Duplicate Emails problem, I initially tried deleting rows directly without isolating the ids to keep.
+Using a subquery with `MIN(id)` ensured only duplicate rows were removed safely.
+
+## Queries to Remember
+
+### Duplicate Emails
+```sql
+DELETE FROM Person
+WHERE id NOT IN (
+    SELECT MIN(id)
+    FROM Person
+    GROUP BY email
+);
