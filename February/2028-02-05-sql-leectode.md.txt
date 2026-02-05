@@ -1,0 +1,32 @@
+# SQL – LeetCode Practice
+
+## Problems Solved
+- Product Sales Analysis I
+- Product Sales Analysis III
+
+## Key Concepts Used
+- INNER JOIN
+- GROUP BY with aggregation
+- MIN() to find first occurrence
+- Combining grouped results with original tables
+
+## What I Learned
+- Joining fact tables (Sales) with dimension tables (Product) is a common analytics pattern
+- `GROUP BY` with aggregate functions helps summarize data per entity
+- Finding the first occurrence of a record often requires grouping with `MIN()`
+
+## Mistake I Made
+For Product Sales Analysis III, I initially grouped incorrectly and lost access to non-aggregated columns.
+Using a subquery to first compute the minimum year per product and then joining back fixed the issue.
+
+## Queries to Remember
+
+### Product Sales Analysis I
+```sql
+SELECT
+    p.product_name,
+    s.year,
+    s.price
+FROM Sales s
+JOIN Product p
+ON s.product_id = p.product_id;
