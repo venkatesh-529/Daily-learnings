@@ -1,0 +1,36 @@
+# SQL – LeetCode Practice
+
+## Problems Solved
+- Market Analysis I
+- Article Views I
+
+## Key Concepts Used
+- LEFT JOIN
+- GROUP BY
+- COUNT aggregation
+- DISTINCT
+- Filtering with WHERE conditions
+
+## What I Learned
+- LEFT JOIN is useful when we want to keep all users even if they have no related records
+- Aggregations like COUNT must be grouped correctly to avoid inflated results
+- DISTINCT is important when counting unique entities such as article views
+- Filtering conditions should be applied carefully to avoid removing required rows
+
+## Mistake I Made
+In Market Analysis I, I initially used an INNER JOIN, which removed users with zero orders.
+Switching to LEFT JOIN ensured that users with no orders were still included with a count of 0.
+
+## Queries to Remember
+
+### Market Analysis I
+```sql
+SELECT
+    u.user_id AS buyer_id,
+    u.join_date,
+    COUNT(o.order_id) AS orders_in_2019
+FROM Users u
+LEFT JOIN Orders o
+ON u.user_id = o.buyer_id
+AND o.order_date BETWEEN '2019-01-01' AND '2019-12-31'
+GROUP BY u.user_id, u.join_date;
