@@ -1,0 +1,38 @@
+# SQL – LeetCode Practice
+
+## Problems Solved
+- Capital Gain/Loss
+- Count Salary Categories
+- Product Price at a Given Date
+
+## Key Concepts Used
+- Conditional aggregation
+- SUM with CASE
+- GROUP BY
+- Date filtering
+- Subquery to find latest record before a given date
+
+## What I Learned
+- Profit/Loss problems often reduce to summing positive and negative transactions using CASE
+- Classification problems can be solved cleanly using CASE with conditional grouping
+- To find a value at a given date, we often need the latest record before or on that date
+- Subqueries help isolate relevant records before joining back
+
+## Mistake I Made
+In the Capital Gain/Loss problem, I initially tried separating buy and sell records into different queries.
+Using `SUM(CASE WHEN ...)` in a single grouped query made the solution cleaner and more efficient.
+
+## Queries to Remember
+
+### Capital Gain/Loss
+```sql
+SELECT
+    stock_name,
+    SUM(
+        CASE
+            WHEN operation = 'Buy' THEN -price
+            WHEN operation = 'Sell' THEN price
+        END
+    ) AS capital_gain_loss
+FROM Stocks
+GROUP BY stock_name;
