@@ -1,0 +1,33 @@
+# SQL – LeetCode Practice
+
+## Problems Solved
+- Odd and Even Transactions
+- Monthly Transactions
+
+## Key Concepts Used
+- Conditional aggregation
+- CASE with SUM
+- GROUP BY
+- Date formatting for monthly grouping
+- Aggregation with filtering
+
+## What I Learned
+- Conditional aggregation allows counting multiple categories in a single query
+- CASE inside SUM is a powerful pattern for classification counts
+- Monthly reports usually require extracting year and month from dates
+- Aggregating first and filtering later leads to cleaner logic
+
+## Mistake I Made
+In the Monthly Transactions problem, I initially grouped by full date, which produced daily results instead of monthly totals.
+Extracting year and month fixed the aggregation level.
+
+## Queries to Remember
+
+### Odd and Even Transactions
+```sql
+SELECT
+    transaction_date,
+    SUM(CASE WHEN amount % 2 = 1 THEN amount ELSE 0 END) AS odd_sum,
+    SUM(CASE WHEN amount % 2 = 0 THEN amount ELSE 0 END) AS even_sum
+FROM Transactions
+GROUP BY transaction_date;
