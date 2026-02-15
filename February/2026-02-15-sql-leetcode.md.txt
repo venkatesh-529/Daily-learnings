@@ -1,0 +1,31 @@
+# SQL – LeetCode Practice
+
+## Problems Solved
+- Find Loyal Customers
+- DNA Pattern Recognition
+
+## Key Concepts Used
+- GROUP BY with HAVING
+- COUNT aggregation
+- Pattern matching
+- Filtering grouped results
+- String conditions
+
+## What I Learned
+- HAVING is used when filtering aggregated results instead of WHERE
+- Loyalty-type problems usually reduce to counting repeated activity per user
+- Pattern recognition queries often rely on string matching logic
+- Aggregation queries become clearer when conditions are separated logically
+
+## Mistake I Made
+In the Loyal Customers problem, I initially tried filtering before grouping, which removed valid records.
+Moving the condition into HAVING ensured filtering happened after aggregation.
+
+## Queries to Remember
+
+### Find Loyal Customers
+```sql
+SELECT customer_id
+FROM Orders
+GROUP BY customer_id
+HAVING COUNT(*) > 1;
