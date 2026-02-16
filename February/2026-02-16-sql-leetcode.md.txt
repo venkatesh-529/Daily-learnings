@@ -1,0 +1,32 @@
+# SQL – LeetCode Practice
+
+## Problem Solved
+- Analyze Subscription Conversion
+
+## Key Concepts Used
+- Conditional aggregation
+- Conversion rate calculation
+- COUNT with CASE
+- Division of aggregated values
+- Filtering relevant event types
+
+## What I Learned
+- Conversion rate problems usually reduce to counting users in two categories and dividing them
+- CASE inside COUNT or SUM is a clean way to separate groups in a single query
+- Writing separate queries for numerator and denominator is inefficient compared to computing both together
+- Clear logic structure prevents double counting users
+
+## Mistake I Made
+I initially tried calculating conversions using two separate queries and manually comparing results.
+Using conditional aggregation in one query made the solution cleaner and more reliable.
+
+## Query to Remember
+```sql
+SELECT
+    ROUND(
+        SUM(CASE WHEN action = 'paid' THEN 1 ELSE 0 END)
+        /
+        SUM(CASE WHEN action = 'trial' THEN 1 ELSE 0 END),
+        2
+    ) AS conversion_rate
+FROM Subscriptions;
