@@ -1,0 +1,43 @@
+# SQL – LeetCode Practice
+
+## Problem Solved
+- Find Dominant Reaction Users
+
+## Key Concepts Used
+- Window functions
+- Aggregation
+- Ranking per group
+- Conditional filtering
+- Ratio calculation
+
+## What I Learned
+- Window functions allow calculating totals per group without separate queries
+- Ranking within partitions helps identify dominant values
+- Filtering after aggregation ensures correct logic
+- Ratios should be computed using decimal conversion to avoid integer division
+
+## Mistake I Faced
+I initially struggled combining aggregation and window functions together.
+Understanding that aggregation runs before window functions clarified the logic.
+
+## Query to Remember
+```sql
+SELECT user_id,
+       reaction AS dominant_reaction,
+       ROUND(cnt*1.0/total,2) AS reaction_ratio
+FROM (
+    SELECT user_id,
+           reaction,
+           COUNT(*) AS cnt,
+           SUM(COUNT(*)) OVER (PARTITION BY user_id) AS total,
+           ROW_NUMBER() OVER (
+               PARTITION BY user_id
+               ORDER BY COUNT(*) DESC
+           ) AS rnk
+    FROM reactions
+    GROUP BY user_id, reaction
+) t
+WHERE rnk = 1
+  AND total >= 5
+  AND cnt >= 0.6 * total
+ORDER BY reaction_ratio DESC, user_id ASC;
